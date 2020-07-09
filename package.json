@@ -1,0 +1,52 @@
+{
+  "name": "html-inline-script-webpack-plugin",
+  "version": "1.0.0",
+  "description": "A webpack plugin for converting external script files to inline script block. Requires 'html-webpack-plugin' to work.",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "rm -rf ./dist && tsc --build --force --verbose",
+    "lint": "eslint --ext .ts,js src",
+    "prepare": "install-peers",
+    "first-release": "standard-version --commit-all --tag-prefix v --first-release",
+    "release": "standard-version --commit-all --tag-prefix v"
+  },
+  "author": "Ice Lam",
+  "repository": {
+    "url": "https://github.com/icelam/html-inline-script-webpack-plugin",
+    "type": "git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "webpack",
+    "webpack4",
+    "webpack-plugin",
+    "html-webpack-plugin",
+    "inline",
+    "internal",
+    "embedded",
+    "inline-source",
+    "script",
+    "inline-script"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@types/html-webpack-plugin": "^3.2.3",
+    "@types/webpack-sources": "^1.4.0",
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.0",
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "husky": "3.1.0",
+    "install-peers-cli": "^2.2.0",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
+    "standard-version": "^8.0.0",
+    "typescript": "^3.9.6"
+  },
+  "peerDependencies": {
+    "html-webpack-plugin": "^4.0.0",
+    "webpack": "^4.0.0"
+  }
+}

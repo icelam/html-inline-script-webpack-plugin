@@ -1,0 +1,11 @@
+/src
+tsconfig.json
+.editorconfig
+.eslintrc
+.huskyrc
+.lintstagedrc
+.nvmrc
+.versionrc
+commitlint.config.js
+yarn-error.log
+yarn.lock
