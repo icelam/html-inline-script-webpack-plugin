@@ -34,7 +34,7 @@
     "@types/html-webpack-plugin": "^3.2.3",
     "@types/webpack": "^4.41.26",
     "@types/webpack-sources": "^1.4.0",
-    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "@typescript-eslint/eslint-plugin": "^4.0.0",
     "@typescript-eslint/parser": "^3.6.0",
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
