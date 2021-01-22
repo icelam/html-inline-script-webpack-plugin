@@ -1,0 +1,6 @@
+extraction:
+  javascript:
+    index:
+      exclude:
+        - dist
+        - docs
