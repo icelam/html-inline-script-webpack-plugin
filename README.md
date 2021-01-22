@@ -1,4 +1,4 @@
-# HTML Inline Script Webpack Plugin (html-inline-script-webpack-plugin)
+# HTML Inline Script Webpack Plugin for webpack 4 (html-inline-script-webpack-plugin)
 
 [![Latest version](https://img.shields.io/github/v/release/icelam/html-inline-script-webpack-plugin.svg?sort=semver&label=latest)](https://github.com/icelam/html-inline-script-webpack-plugin/releases)
 [![Download count](https://img.shields.io/npm/dm/html-inline-script-webpack-plugin)](https://www.npmjs.com/package/html-inline-script-webpack-plugin)
