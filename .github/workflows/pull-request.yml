@@ -1,0 +1,31 @@
+name: Build test
+on: [pull_request]
+
+jobs:
+  check:
+    name: Build
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@master
+      - name: Setup Node.js version
+        uses: actions/setup-node@master
+        with:
+          node-version: '12.16.1'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Restore yarn cache
+        uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install dependencies
+        run: |
+          yarn install --frozen-lockfile
+      - name: Build
+        run: |
+          yarn build
