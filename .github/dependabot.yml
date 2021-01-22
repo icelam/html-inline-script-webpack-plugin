@@ -1,0 +1,23 @@
+# Basic dependabot.yml file with
+# https://docs.github.com/en/github/administering-a-repository/enabling-and-disabling-version-updates#example-dependabotyml-file
+
+version: 2
+updates:
+  # https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates#package-ecosystem
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+    ignore:
+      - dependency-name: "husky"
+      - dependency-name: "webpack"
+      - dependency-name: "html-webpack-plugin"
+    reviewers:
+      - "icelam"
+    open-pull-requests-limit: 5
