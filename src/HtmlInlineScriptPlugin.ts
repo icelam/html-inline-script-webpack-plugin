@@ -64,14 +64,13 @@ class HtmlInlineScriptPlugin {
         );
         return data;
       });
+    });
 
-      hooks.beforeEmit.tap(`${PLUGIN_PREFIX}_beforeEmit`, (data) => {
-        Object.keys(compilation.assets).forEach((assetName) => {
-          if (this.isFileNeedsToBeInlined(assetName)) {
-            delete compilation.assets[assetName];
-          }
-        });
-        return data;
+    compiler.hooks.emit.tap(`${PLUGIN_PREFIX}_emit`, (compilation) => {
+      Object.keys(compilation.assets).forEach((assetName) => {
+        if (this.isFileNeedsToBeInlined(assetName)) {
+          delete compilation.assets[assetName];
+        }
       });
     });
   }
