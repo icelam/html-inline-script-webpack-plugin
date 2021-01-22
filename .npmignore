@@ -2,6 +2,7 @@
 tsconfig.json
 .editorconfig
 .eslintrc
+.eslintignore
 .huskyrc
 .lintstagedrc
 .nvmrc
@@ -9,3 +10,5 @@ tsconfig.json
 commitlint.config.js
 yarn-error.log
 yarn.lock
+.github
+lgtm.yml
