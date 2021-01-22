@@ -1,6 +1,6 @@
 {
   "name": "html-inline-script-webpack-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A webpack plugin for converting external script files to inline script block. Requires 'html-webpack-plugin' to work.",
   "main": "./dist/index.js",
   "scripts": {
