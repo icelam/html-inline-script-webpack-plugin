@@ -39,7 +39,7 @@
   },
   "overrides": [
     {
-      "files": ["scripts/*.js"],
+      "files": ["scripts/*.js", "test/**/*.js"],
       "env": { "node": true },
       "rules": {
         "@typescript-eslint/no-var-requires": ["off"],

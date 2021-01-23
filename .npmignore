@@ -12,3 +12,4 @@ yarn-error.log
 yarn.lock
 .github
 lgtm.yml
+/test
