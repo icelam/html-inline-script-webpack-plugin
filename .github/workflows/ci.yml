@@ -1,9 +1,18 @@
-name: Build test
-on: [pull_request]
+name: ci
+on:
+  push:
+    branches:
+      - master
+      - develop
+    tags-ignore:
+      - '**' #prevent double build on release tag
+  pull_request:
+    branches:
+      - '**'
 
 jobs:
-  check:
-    name: Build
+  test:
+    name: Test
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout repo
@@ -23,9 +32,15 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+      - name: Install webpack-cli
+        run: |
+          yarn add -P webpack-cli
       - name: Install dependencies
         run: |
           yarn install --frozen-lockfile
-      - name: Build
+      - name: Build package
         run: |
           yarn build
+      - name: Test
+        run: |
+          webpack --config test/cases/v4/simple/webpack.config.js
