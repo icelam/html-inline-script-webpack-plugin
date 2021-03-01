@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc --build --force --verbose",
     "lint": "eslint --ext .ts,js src",
-    "prepare": "install-peers",
+    "prepare": "husky install && install-peers",
     "first-release": "npx standard-version --commit-all --tag-prefix v --first-release",
     "release": "npx standard-version --commit-all --tag-prefix v",
     "extract-latest-change-log": "node scripts/extractLatestChangeLog.js"
@@ -30,19 +30,20 @@
     "inline-script"
   ],
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/cli": "^12.0.0",
+    "@commitlint/config-conventional": "^12.0.0",
     "@types/html-webpack-plugin": "^3.2.3",
     "@types/webpack": "^4.41.26",
     "@types/webpack-sources": "^1.4.0",
     "@typescript-eslint/eslint-plugin": "^4.0.0",
-    "@typescript-eslint/parser": "^3.6.0",
+    "@typescript-eslint/parser": "^4.15.2",
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
-    "husky": "3.1.0",
+    "husky": "^5.1.2",
     "install-peers-cli": "^2.2.0",
     "lint-staged": "^10.2.11",
+    "pinst": "^2.1.6",
     "prettier": "^2.0.5",
     "typescript": "^4.1.3"
   },
