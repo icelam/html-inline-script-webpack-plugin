@@ -1,9 +1,10 @@
-import { Compiler } from 'webpack';
-import { RawSource } from 'webpack-sources'; // eslint-disable-line import/no-extraneous-dependencies
-import htmlWebpackPlugin, { HtmlTagObject } from 'html-webpack-plugin';
+import type { Compiler, Plugin } from 'webpack';
+import type { RawSource } from 'webpack-sources';
+import htmlWebpackPlugin from 'html-webpack-plugin';
+import type { HtmlTagObject } from 'html-webpack-plugin';
 import { PLUGIN_PREFIX } from './constants';
 
-class HtmlInlineScriptPlugin {
+class HtmlInlineScriptPlugin implements Plugin {
   tests: RegExp[];
 
   constructor(tests?: RegExp[]) {
