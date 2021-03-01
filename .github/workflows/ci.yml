@@ -17,6 +17,8 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x, 13.x, 14.x]
+    env:
+      HUSKY: 0
     steps:
       - name: Checkout repo
         uses: actions/checkout@main
