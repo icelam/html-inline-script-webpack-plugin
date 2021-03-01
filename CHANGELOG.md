@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.1.1](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v1.1.0...v1.1.1) (2021-03-01)
+
+
+### Bug Fixes
+
+* ignore .husky and scripts folder when publishing package ([f056fa2](https://github.com/icelam/html-inline-script-webpack-plugin/commit/f056fa26f242cdca73254f5a0a260a98c4e477d7))
+
 ## [1.1.0](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v1.0.1...v1.1.0) (2021-03-01)
 
 
