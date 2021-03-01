@@ -1,10 +1,10 @@
-import type { Compiler, Plugin } from 'webpack';
-import type { RawSource } from 'webpack-sources';
+import { Compilation } from 'webpack';
+import type { Compiler, WebpackPluginInstance } from 'webpack';
 import htmlWebpackPlugin from 'html-webpack-plugin';
 import type { HtmlTagObject } from 'html-webpack-plugin';
 import { PLUGIN_PREFIX } from './constants';
 
-class HtmlInlineScriptPlugin implements Plugin {
+class HtmlInlineScriptPlugin implements WebpackPluginInstance {
   tests: RegExp[];
 
   constructor(tests?: RegExp[]) {
@@ -19,7 +19,7 @@ class HtmlInlineScriptPlugin implements Plugin {
 
   processScriptTag(
     publicPath: string,
-    assets: { [key: string]: RawSource },
+    assets: Compilation['assets'],
     tag: HtmlTagObject
   ): HtmlTagObject {
     if (tag.tagName !== 'script' || !tag.attributes?.src) {
@@ -43,14 +43,15 @@ class HtmlInlineScriptPlugin implements Plugin {
 
     return {
       tagName: 'script',
-      innerHTML: asset.source(),
+      innerHTML: asset.source() as string,
       voidTag: false,
-      attributes: attributesWithoutSrc
+      attributes: attributesWithoutSrc,
+      meta: { plugin: 'html-inline-script-webpack-plugin' }
     };
   }
 
   apply(compiler: Compiler): void {
-    let publicPath = compiler.options?.output?.publicPath || '';
+    let publicPath = compiler.options?.output?.publicPath as string || '';
 
     if (publicPath && !publicPath.endsWith('/')) {
       publicPath += '/';
@@ -65,13 +66,16 @@ class HtmlInlineScriptPlugin implements Plugin {
         );
         return data;
       });
-    });
 
-    compiler.hooks.emit.tap(`${PLUGIN_PREFIX}_emit`, (compilation) => {
-      Object.keys(compilation.assets).forEach((assetName) => {
-        if (this.isFileNeedsToBeInlined(assetName)) {
-          delete compilation.assets[assetName];
-        }
+      compilation.hooks.processAssets.tap({
+        name: `${PLUGIN_PREFIX}_PROCESS_ASSETS_STAGE_SUMMARIZE`,
+        stage: Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE
+      }, (assets) => {
+        Object.keys(assets).forEach((assetName) => {
+          if (this.isFileNeedsToBeInlined(assetName)) {
+            delete assets[assetName];
+          }
+        });
       });
     });
   }
