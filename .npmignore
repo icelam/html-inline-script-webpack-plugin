@@ -15,3 +15,4 @@ lgtm.yml
 /__tests__
 .husky
 /scripts
+jest.config.js
