@@ -5,4 +5,4 @@ yarn-debug.log*
 yarn-error.log*
 
 /dist
-/test/**/*/dist
+/__tests__/**/*/dist

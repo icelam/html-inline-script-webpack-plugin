@@ -23,27 +23,40 @@
   "rules": {
     "no-param-reassign": "off",
     "comma-dangle": ["error", "never"],
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "optionalDependencies": false
-      }
-    ],
-    "import/extensions": [
-      "error",
-      {
-        "js": "never",
-        "ts": "never",
-      }
-    ]
+    "import/no-extraneous-dependencies": ["error", {
+      "optionalDependencies": false
+    }],
+    "import/extensions": ["error", {
+      "js": "never",
+      "ts": "never",
+    }]
   },
   "overrides": [
     {
-      "files": ["scripts/*.js", "test/**/*.js"],
+      "plugins": ["jest"],
+      "files": ["__tests__/**/*.test.js", "__tests__/**/*.test.ts"],
+      "settings": {
+        "import/resolver": {
+          "node": {
+            "extensions": [".js", ".json", ".ts"]
+          }
+        }
+      },
+      "extends": [
+        "eslint:recommended",
+        "airbnb-base",
+        "plugin:jest/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+      ],
       "env": { "node": true },
       "rules": {
         "@typescript-eslint/no-var-requires": ["off"],
-        "no-console": ["off"]
+        "no-console": ["off"],
+        "import/extensions": ["error", {
+          "js": "never",
+          "ts": "never",
+        }]
       }
     }
   ]
