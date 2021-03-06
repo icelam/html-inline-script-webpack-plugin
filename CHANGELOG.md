@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.1.2](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v1.1.1...v1.1.2) (2021-03-06)
+
+
+### Bug Fixes
+
+* fix no construct signatures error throw by typescript ([d00e1a7](https://github.com/icelam/html-inline-script-webpack-plugin/commit/d00e1a7eb79bb81642246ac81d68807b72bcb06e))
+
 ### [1.1.1](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v1.1.0...v1.1.1) (2021-03-01)
 
 
