@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.0](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v1.1.2...v2.0.0) (2021-03-21)
+
+
+### Features
+
+* support for webpack 5 ([a015679](https://github.com/icelam/html-inline-script-webpack-plugin/commit/a0156798e6a80d58d4db52d0fb614bc673cac9f3))
+
 ### [1.1.2](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v1.1.1...v1.1.2) (2021-03-06)
 
 
