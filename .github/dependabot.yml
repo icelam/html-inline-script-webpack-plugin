@@ -3,7 +3,7 @@
 
 version: 2
 updates:
-  # https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates#package-ecosystem
+  # checking for develop branch which contains v2 code of this plugin
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -15,8 +15,23 @@ updates:
       prefix: "chore"
       prefix-development: "chore"
       include: "scope"
+    reviewers:
+      - "icelam"
+    open-pull-requests-limit: 5
+
+  # checking for v1 branch which contains v1 code of this plugin
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "v1"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
     ignore:
-      - dependency-name: "husky"
       - dependency-name: "webpack"
       - dependency-name: "html-webpack-plugin"
     reviewers:
