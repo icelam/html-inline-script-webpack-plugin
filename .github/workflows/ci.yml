@@ -4,6 +4,7 @@ on:
     branches:
       - master
       - develop
+      - v1
     tags-ignore:
       - '**' #prevent double build on release tag
   pull_request:
