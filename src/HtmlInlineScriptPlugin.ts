@@ -8,7 +8,7 @@ class HtmlInlineScriptPlugin implements Plugin {
   tests: RegExp[];
 
   constructor(tests?: RegExp[]) {
-    this.tests = tests || [/.+[.]js/];
+    this.tests = tests || [/.+[.]js$/];
   }
 
   isFileNeedsToBeInlined(
