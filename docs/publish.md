@@ -22,7 +22,7 @@ yarn build
 npm publish
 
 # push code and trigger github release creation
-git push
+git push --follow-tags
 ```
 
 ## Version 2
@@ -56,5 +56,10 @@ yarn build
 npm publish
 
 # push code and trigger github release creation
+git push --follow-tags
+
+# merge change logs back to develop
+git checkout develop
+git merge --no-ff master
 git push
 ```
