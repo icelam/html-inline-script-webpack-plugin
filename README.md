@@ -60,8 +60,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin(),
     new HtmlInlineScriptPlugin([
-      /runtime~.+[.]js/,
-      /app~.+[.]js/
+      /runtime~.+[.]js$/,
+      /app~.+[.]js$/
     ]),
   ]
 }
