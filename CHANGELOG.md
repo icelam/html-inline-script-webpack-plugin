@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.0.1](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v2.0.0...v2.0.1) (2021-05-05)
+
+
+### Bug Fixes
+
+* chage the default test scope to avoid targeting map files or gzip files ([7539425](https://github.com/icelam/html-inline-script-webpack-plugin/commit/75394251d96d94dbb35ae9b353b9ca6f24c6cec8))
+
 ## [2.0.0](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v1.1.2...v2.0.0) (2021-03-21)
 
 
