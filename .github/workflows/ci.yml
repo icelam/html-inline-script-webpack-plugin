@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        node-version: [12.x, 13.x, 14.x]
+        node-version: [12.x, 14.x]
     env:
       HUSKY: 0
     steps:
@@ -39,7 +39,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: |
-          yarn install --frozen-lockfile --ignore-engines
+          yarn install --frozen-lockfile
       - name: Build package
         run: |
           yarn build
