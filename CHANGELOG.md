@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.1.4](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v1.1.3...v1.1.4) (2021-07-04)
+
+
+### Bug Fixes
+
+* invalid logic on missing script check ([aa66df0](https://github.com/icelam/html-inline-script-webpack-plugin/commit/aa66df02b9a4e3f209091b91be41caa9e6559c6a))
+
 ### [1.1.3](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v1.1.2...v1.1.3) (2021-05-05)
 
 
