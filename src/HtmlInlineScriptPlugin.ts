@@ -34,7 +34,7 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
 
     const asset = assets[scriptName];
 
-    if (!tag) {
+    if (!asset) {
       return tag;
     }
 
