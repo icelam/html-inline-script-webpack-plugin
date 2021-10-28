@@ -3,6 +3,10 @@
   "plugins": [
     "@typescript-eslint"
   ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "extends": [
     "eslint:recommended",
     "airbnb-base",
