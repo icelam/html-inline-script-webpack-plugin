@@ -7,8 +7,11 @@ import { PLUGIN_PREFIX } from './constants';
 class HtmlInlineScriptPlugin implements WebpackPluginInstance {
   tests: RegExp[];
 
+  processedScriptFiles: string[];
+
   constructor(tests?: RegExp[]) {
     this.tests = tests || [/.+[.]js$/];
+    this.processedScriptFiles = [];
   }
 
   isFileNeedsToBeInlined(
@@ -40,6 +43,7 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { src, ...attributesWithoutSrc } = tag.attributes;
+    this.processedScriptFiles.push(scriptName);
 
     return {
       tagName: 'script',
@@ -71,10 +75,8 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
         name: `${PLUGIN_PREFIX}_PROCESS_ASSETS_STAGE_SUMMARIZE`,
         stage: Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE
       }, (assets) => {
-        Object.keys(assets).forEach((assetName) => {
-          if (this.isFileNeedsToBeInlined(assetName)) {
-            delete assets[assetName];
-          }
+        this.processedScriptFiles.forEach((assetName) => {
+          delete assets[assetName];
         });
       });
     });

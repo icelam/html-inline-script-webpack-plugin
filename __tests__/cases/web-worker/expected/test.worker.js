@@ -1,0 +1,1 @@
+onmessage=function(s){const e={timestamp:Date.now(),...s.data};e.onmessage=!0,postMessage(e)};

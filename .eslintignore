@@ -1,1 +1,4 @@
 README.md
+__tests__/cases/**/dist
+__tests__/cases/**/expected
+dist
