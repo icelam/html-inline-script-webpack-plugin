@@ -7,8 +7,11 @@ import { PLUGIN_PREFIX } from './constants';
 class HtmlInlineScriptPlugin implements Plugin {
   tests: RegExp[];
 
+  processedScriptFiles: string[];
+
   constructor(tests?: RegExp[]) {
     this.tests = tests || [/.+[.]js$/];
+    this.processedScriptFiles = [];
   }
 
   isFileNeedsToBeInlined(
@@ -41,6 +44,8 @@ class HtmlInlineScriptPlugin implements Plugin {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { src, ...attributesWithoutSrc } = tag.attributes;
 
+    this.processedScriptFiles.push(scriptName);
+
     return {
       tagName: 'script',
       innerHTML: asset.source(),
@@ -68,10 +73,8 @@ class HtmlInlineScriptPlugin implements Plugin {
     });
 
     compiler.hooks.emit.tap(`${PLUGIN_PREFIX}_emit`, (compilation) => {
-      Object.keys(compilation.assets).forEach((assetName) => {
-        if (this.isFileNeedsToBeInlined(assetName)) {
-          delete compilation.assets[assetName];
-        }
+      this.processedScriptFiles.forEach((assetName) => {
+        delete compilation.assets[assetName];
       });
     });
   }
