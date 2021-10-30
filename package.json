@@ -9,7 +9,6 @@
     "prepare": "husky install && install-peers",
     "first-release": "npx standard-version --commit-all --tag-prefix v --first-release",
     "release": "npx standard-version --commit-all --tag-prefix v",
-    "extract-latest-change-log": "node scripts/extractLatestChangeLog.js",
     "test": "jest --verbose --watchAll --config ./jest.config.js",
     "test:ci": "yarn test --ci --watchAll=false --runInBand --detectOpenHandles"
   },
