@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.0.3](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v2.0.2...v2.0.3) (2021-10-30)
+
+
+### Bug Fixes
+
+* delete only script files which has been processed by plugin ([4e40c19](https://github.com/icelam/html-inline-script-webpack-plugin/commit/4e40c19ee11688f9ee9bbb25196cc30a0f7372ce))
+
 ### [2.0.2](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v2.0.1...v2.0.2) (2021-07-04)
 
 
