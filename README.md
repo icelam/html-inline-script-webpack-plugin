@@ -18,10 +18,13 @@ Inspired by [react-dev-utils](https://github.com/facebook/create-react-app/blob/
 ### Webpack5
 
 #### NPM
+
 ```bash
 npm i html-inline-script-webpack-plugin -D
 ```
+
 #### Yarn
+
 ```bash
 yarn add html-inline-script-webpack-plugin -D
 ```
@@ -29,29 +32,43 @@ yarn add html-inline-script-webpack-plugin -D
 ### Webpack4
 
 #### NPM
+
 ```bash
 npm i html-inline-script-webpack-plugin@^1 -D
 ```
+
 #### Yarn
+
 ```bash
 yarn add html-inline-script-webpack-plugin@^1 -D
 ```
 
 ## Usage
+
 By default, the plugin will convert all the external script files to inline script block.
+
 ```js
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 
 module.exports = {
-  plugins: [
-    new HtmlWebpackPlugin(),
-    new HtmlInlineScriptPlugin(),
-  ]
-}
+  plugins: [new HtmlWebpackPlugin(), new HtmlInlineScriptPlugin()],
+};
 ```
 
-To limit the scope of the plugin, specify lists of files you wish to convert in regular expressions:
+## Options
+
+Below are lists of options supported by this plugin:
+
+| Name               | Description                                                                                                                                                                                                                                                                             | Type     |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| scriptMatchPattern | List of script files that should be processed and inject as inline script. This will be filtered using the output file name.                                                                                                                                                     | RegExp[] |
+| htmlMatchPattern   | List of HTML template files that should be processed by this plugin. Useful when you have multiple `html-webpack-plugin` initialized. This will be filtered using the [`options?.filename`](https://github.com/jantimon/html-webpack-plugin#options) provided by `html-webpack-plugin`. | RegExp[] |
+
+Here are some examples illustrating how to use these options:
+
+##### Process only script files that have file name start with `runtime~` and `app~`
+
 ```js
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
@@ -59,10 +76,56 @@ const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 module.exports = {
   plugins: [
     new HtmlWebpackPlugin(),
-    new HtmlInlineScriptPlugin([
-      /runtime~.+[.]js$/,
-      /app~.+[.]js$/
-    ]),
-  ]
-}
+    new HtmlInlineScriptPlugin({
+      scriptMatchPattern: [/runtime~.+[.]js$/, /app~.+[.]js$/],
+    }),
+  ],
+};
+```
+
+##### Process any script files but only have them inlined in `index.html`
+
+```js
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
+
+module.exports = {
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'static/index.webos.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'page2.html',
+      template: 'page2.html',
+    }),
+    new HtmlInlineScriptPlugin({
+      htmlMatchPattern: [/index.html$/],
+    }),
+  ],
+};
+```
+
+##### Process script files that have file name start with `runtime~` and `app~` and inject only to `index.html`
+
+```js
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
+
+module.exports = {
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'static/index.webos.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'page2.html',
+      template: 'page2.html',
+    }),
+    new HtmlInlineScriptPlugin({
+      scriptMatchPattern: [/runtime~.+[.]js$/, /app~.+[.]js$/],
+      htmlMatchPattern: [/index.html$/],
+    }),
+  ],
+};
 ```
