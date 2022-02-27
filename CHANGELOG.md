@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.0](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v2.0.3...v3.0.0) (2022-02-27)
+
+
+### Features
+
+* new option for defining HTML templates the plugin should process ([1ffe025](https://github.com/icelam/html-inline-script-webpack-plugin/commit/1ffe025618685b99a1c37ef6d925b422ae5918c7))
+
 ### [2.0.3](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v2.0.2...v2.0.3) (2021-10-30)
 
 
