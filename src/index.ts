@@ -11,7 +11,7 @@ if (isUnsupportedVersion) {
   console.error(
     '\x1b[35m%s \x1b[31m%s\x1b[0m',
     '[html-inline-script-webpack-plugin]',
-    'Version 2.x only supports webpack 5. If you are using webpack 4, please downgrade this plugin to version 1.x instead.'
+    'Version 3.x only supports webpack 5. If you are using webpack 4, please downgrade this plugin to version 1.x instead.'
   );
 
   throw new Error('VERSION_INCOMPATIBLE');
