@@ -4,20 +4,54 @@ import htmlWebpackPlugin from 'html-webpack-plugin';
 import type { HtmlTagObject } from 'html-webpack-plugin';
 import { PLUGIN_PREFIX } from './constants';
 
+export type PluginOptions = {
+  scriptMatchPattern?: RegExp[];
+  htmlMatchPattern?: RegExp[];
+};
+
 class HtmlInlineScriptPlugin implements WebpackPluginInstance {
-  tests: RegExp[];
+  scriptMatchPattern: NonNullable<PluginOptions['scriptMatchPattern']>;
+
+  htmlMatchPattern: NonNullable<PluginOptions['htmlMatchPattern']>;
 
   processedScriptFiles: string[];
 
-  constructor(tests?: RegExp[]) {
-    this.tests = tests || [/.+[.]js$/];
+  ignoredHtmlFiles: string[];
+
+  constructor(options: PluginOptions = {}) {
+    if (options && Array.isArray(options)) {
+      // eslint-disable-next-line no-console
+      console.error(
+        '\x1b[35m%s \x1b[31m%s %s\x1b[0m',
+        '[html-inline-script-webpack-plugin]',
+        'Options is now an object containing `scriptMatchPattern` and `htmlMatchPattern` in version 3.x.',
+        'Please refer to documentation for more information.'
+      );
+
+      throw new Error('OPTIONS_PATTERN_UNMATCHED');
+    }
+
+    const {
+      scriptMatchPattern = [/.+[.]js$/],
+      htmlMatchPattern = [/.+[.]html$/]
+    } = options;
+
+    this.scriptMatchPattern = scriptMatchPattern;
+    this.htmlMatchPattern = htmlMatchPattern;
     this.processedScriptFiles = [];
+    this.ignoredHtmlFiles = [];
   }
 
   isFileNeedsToBeInlined(
     assetName: string
   ): boolean {
-    return this.tests.some((test) => assetName.match(test));
+    return this.scriptMatchPattern.some((test) => assetName.match(test));
+  }
+
+  shouldProcessHtml(
+    templateName: string
+  ): boolean {
+    return this.htmlMatchPattern.some((test) => templateName.match(test));
   }
 
   processScriptTag(
@@ -65,6 +99,13 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
       const hooks = htmlWebpackPlugin.getHooks(compilation);
 
       hooks.alterAssetTags.tap(`${PLUGIN_PREFIX}_alterAssetTags`, (data) => {
+        const htmlFileName = data.plugin.options?.filename;
+
+        if (htmlFileName && !this.shouldProcessHtml(htmlFileName)) {
+          this.ignoredHtmlFiles.push(htmlFileName);
+          return data;
+        }
+
         data.assetTags.scripts = data.assetTags.scripts.map(
           (tag: HtmlTagObject) => this.processScriptTag(publicPath, compilation.assets, tag)
         );
@@ -75,9 +116,11 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
         name: `${PLUGIN_PREFIX}_PROCESS_ASSETS_STAGE_SUMMARIZE`,
         stage: Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE
       }, (assets) => {
-        this.processedScriptFiles.forEach((assetName) => {
-          delete assets[assetName];
-        });
+        if (this.ignoredHtmlFiles.length === 0) {
+          this.processedScriptFiles.forEach((assetName) => {
+            delete assets[assetName];
+          });
+        }
       });
     });
   }
