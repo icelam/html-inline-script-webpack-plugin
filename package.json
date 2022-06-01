@@ -34,7 +34,7 @@
   ],
   "devDependencies": {
     "@commitlint/cli": "^16.0.1",
-    "@commitlint/config-conventional": "^16.0.0",
+    "@commitlint/config-conventional": "^17.0.2",
     "@types/html-webpack-plugin": "^3.2.3",
     "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^4.0.0",
