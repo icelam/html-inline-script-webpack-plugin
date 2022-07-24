@@ -12,6 +12,7 @@ import inlineWebWorkerConfig from './cases/inline-web-worker/webpack.config';
 import ignoreScriptsConfig from './cases/ignore-scripts/webpack.config';
 import ignoreHtmlsConfig from './cases/ignore-htmls/webpack.config';
 import ignoreScriptsAndHtmlsConfig from './cases/ignore-scripts-and-htmls/webpack.config';
+import filenameWithSpecialCharactersConfig from './cases/filename-with-special-characters/webpack.config';
 
 describe('HtmlInlineScriptPlugin', () => {
   it('should build simple webpack config without error', async () => {
@@ -193,6 +194,38 @@ describe('HtmlInlineScriptPlugin', () => {
 
         const expectedFileList = fs.readdirSync(path.join(__dirname, 'cases/inline-web-worker/expected/'));
         const generatedFileList = fs.readdirSync(path.join(__dirname, 'cases/inline-web-worker/dist/'));
+        expect(expectedFileList.sort()).toEqual(generatedFileList.sort());
+
+        resolve(true);
+      });
+    });
+
+    await webpackPromise;
+  });
+
+  it('should inline filename with spacial characters without error', async () => {
+    const webpackPromise = new Promise((resolve) => {
+      const compiler = webpack(filenameWithSpecialCharactersConfig);
+
+      compiler.run((error, stats) => {
+        expect(error).toBeNull();
+
+        const statsErrors = stats?.compilation.errors;
+        expect(statsErrors?.length).toBe(0);
+
+        const result = fs.readFileSync(
+          path.join(__dirname, 'cases/filename-with-special-characters/dist/index.html'),
+          'utf8',
+        );
+
+        const expected = fs.readFileSync(
+          path.join(__dirname, 'cases/filename-with-special-characters/expected/index.html'),
+          'utf8',
+        );
+        expect(result).toBe(expected);
+
+        const expectedFileList = fs.readdirSync(path.join(__dirname, 'cases/filename-with-special-characters/expected/'));
+        const generatedFileList = fs.readdirSync(path.join(__dirname, 'cases/filename-with-special-characters/dist/'));
         expect(expectedFileList.sort()).toEqual(generatedFileList.sort());
 
         resolve(true);
