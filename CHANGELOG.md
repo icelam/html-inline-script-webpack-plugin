@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.0.1](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v3.0.0...v3.0.1) (2022-07-24)
+
+
+### Bug Fixes
+
+* unable to match assets when filename contains special characters ([ce6be9c](https://github.com/icelam/html-inline-script-webpack-plugin/commit/ce6be9cc09c40cfd85377a62b119bacdf590c67b))
+
 ## [3.0.0](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v2.0.3...v3.0.0) (2022-02-27)
 
 
