@@ -63,7 +63,8 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
       return tag;
     }
 
-    const scriptName = (tag.attributes.src as string).replace(publicPath, '');
+    // Decoded is needed for special characters in filename like '@' since they will be escaped
+    const scriptName = decodeURIComponent((tag.attributes.src as string).replace(publicPath, ''));
 
     if (!this.isFileNeedsToBeInlined(scriptName)) {
       return tag;
