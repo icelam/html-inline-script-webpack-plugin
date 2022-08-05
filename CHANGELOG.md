@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v3.0.1...v3.1.0) (2022-08-05)
+
+
+### Features
+
+* escape all </script> that appears inside source ([cdf4b31](https://github.com/icelam/html-inline-script-webpack-plugin/commit/cdf4b3198f4ff927fe03a25b6f35eacff6080ff2))
+
 ### [3.0.1](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v3.0.0...v3.0.1) (2022-07-24)
 
 
