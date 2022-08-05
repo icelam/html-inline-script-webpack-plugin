@@ -13,6 +13,7 @@ import ignoreScriptsConfig from './cases/ignore-scripts/webpack.config';
 import ignoreHtmlsConfig from './cases/ignore-htmls/webpack.config';
 import ignoreScriptsAndHtmlsConfig from './cases/ignore-scripts-and-htmls/webpack.config';
 import filenameWithSpecialCharactersConfig from './cases/filename-with-special-characters/webpack.config';
+import escapeScriptTagEndConfig from './cases/escape-script-end-tag/webpack.config';
 
 describe('HtmlInlineScriptPlugin', () => {
   it('should build simple webpack config without error', async () => {
@@ -349,6 +350,38 @@ describe('HtmlInlineScriptPlugin', () => {
 
         const expectedFileList = fs.readdirSync(path.join(__dirname, 'cases/ignore-scripts-and-htmls/expected/'));
         const generatedFileList = fs.readdirSync(path.join(__dirname, 'cases/ignore-scripts-and-htmls/dist/'));
+        expect(expectedFileList.sort()).toEqual(generatedFileList.sort());
+
+        resolve(true);
+      });
+    });
+
+    await webpackPromise;
+  });
+
+  it('should escape any "</script>" appears in source', async () => {
+    const webpackPromise = new Promise((resolve) => {
+      const compiler = webpack(escapeScriptTagEndConfig);
+
+      compiler.run((error, stats) => {
+        expect(error).toBeNull();
+
+        const statsErrors = stats?.compilation.errors;
+        expect(statsErrors?.length).toBe(0);
+
+        const result = fs.readFileSync(
+          path.join(__dirname, 'cases/escape-script-end-tag/dist/index.html'),
+          'utf8',
+        );
+
+        const expected = fs.readFileSync(
+          path.join(__dirname, 'cases/escape-script-end-tag/expected/index.html'),
+          'utf8',
+        );
+        expect(result).toBe(expected);
+
+        const expectedFileList = fs.readdirSync(path.join(__dirname, 'cases/escape-script-end-tag/expected/'));
+        const generatedFileList = fs.readdirSync(path.join(__dirname, 'cases/escape-script-end-tag/dist/'));
         expect(expectedFileList.sort()).toEqual(generatedFileList.sort());
 
         resolve(true);

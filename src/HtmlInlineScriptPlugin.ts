@@ -82,7 +82,8 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
 
     return {
       tagName: 'script',
-      innerHTML: asset.source() as string,
+      // escape '</script>' appears in source
+      innerHTML: (asset.source() as string).replace(/(<)(\/script>)/g, '\\x3C$2'),
       voidTag: false,
       attributes: attributesWithoutSrc,
       meta: { plugin: 'html-inline-script-webpack-plugin' }
