@@ -5,7 +5,6 @@
 [![Install size](https://packagephobia.com/badge?p=html-inline-script-webpack-plugin)](https://packagephobia.com/result?p=html-inline-script-webpack-plugin)
 ![ci](https://github.com/icelam/html-inline-script-webpack-plugin/workflows/ci/badge.svg)
 [![Package quality](https://npm.packagequality.com/shield/html-inline-script-webpack-plugin.svg)](https://packagequality.com/#?package=html-inline-script-webpack-plugin)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/icelam/html-inline-script-webpack-plugin.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/icelam/html-inline-script-webpack-plugin/context:javascript)
 
 [![NPM](https://nodei.co/npm/html-inline-script-webpack-plugin.png?compact=true)](https://npmjs.org/package/html-inline-script-webpack-plugin)
 
