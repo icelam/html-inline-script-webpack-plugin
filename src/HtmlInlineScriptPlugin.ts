@@ -7,6 +7,7 @@ import { PLUGIN_PREFIX } from './constants';
 export type PluginOptions = {
   scriptMatchPattern?: RegExp[];
   htmlMatchPattern?: RegExp[];
+  preserveAsset?: (assetName: string) => boolean
 };
 
 class HtmlInlineScriptPlugin implements WebpackPluginInstance {
@@ -17,6 +18,8 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
   processedScriptFiles: string[];
 
   ignoredHtmlFiles: string[];
+
+  preserveAsset: (assetName: string) => boolean
 
   constructor(options: PluginOptions = {}) {
     if (options && Array.isArray(options)) {
@@ -33,12 +36,14 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
 
     const {
       scriptMatchPattern = [/.+[.]js$/],
-      htmlMatchPattern = [/.+[.]html$/]
+      htmlMatchPattern = [/.+[.]html$/],
+      preserveAsset = () => false
     } = options;
 
     this.scriptMatchPattern = scriptMatchPattern;
     this.htmlMatchPattern = htmlMatchPattern;
     this.processedScriptFiles = [];
+    this.preserveAsset = preserveAsset;
     this.ignoredHtmlFiles = [];
   }
 
@@ -120,7 +125,9 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
       }, (assets) => {
         if (this.ignoredHtmlFiles.length === 0) {
           this.processedScriptFiles.forEach((assetName) => {
-            delete assets[assetName];
+            if (!this.preserveAsset(assetName)) {
+              delete assets[assetName];
+            }
           });
         }
       });
