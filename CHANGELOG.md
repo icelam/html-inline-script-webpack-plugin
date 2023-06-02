@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v3.1.0...v3.2.0) (2023-06-02)
+
+
+### Features
+
+* support preserving inlined assets by regex ([#434](https://github.com/icelam/html-inline-script-webpack-plugin/issues/434)) ([239e7b9](https://github.com/icelam/html-inline-script-webpack-plugin/commit/239e7b9e31dabf6699089357af214951c6209918))
+
 ## [3.1.0](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v3.0.1...v3.1.0) (2022-08-05)
 
 
