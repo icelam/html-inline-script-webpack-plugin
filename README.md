@@ -16,35 +16,19 @@ Inspired by [react-dev-utils](https://github.com/facebook/create-react-app/blob/
 
 ### Webpack5
 
-#### NPM
-
 ```bash
 npm i html-inline-script-webpack-plugin -D
 ```
 
-#### Yarn
-
-```bash
-yarn add html-inline-script-webpack-plugin -D
-```
-
 ### Webpack4
-
-#### NPM
 
 ```bash
 npm i html-inline-script-webpack-plugin@^1 -D
 ```
 
-#### Yarn
-
-```bash
-yarn add html-inline-script-webpack-plugin@^1 -D
-```
-
 ## Usage
 
-By default, the plugin will convert all the external script files to inline script block.
+By default, the plugin will convert all the external script files to inline script block, and remove the original script file from build assets.
 
 ```js
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -63,6 +47,7 @@ Below are lists of options supported by this plugin:
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | scriptMatchPattern | List of script files that should be processed and inject as inline script. This will be filtered using the output file name.                                                                                                                                                     | RegExp[] |
 | htmlMatchPattern   | List of HTML template files that should be processed by this plugin. Useful when you have multiple `html-webpack-plugin` initialized. This will be filtered using the [`options?.filename`](https://github.com/jantimon/html-webpack-plugin#options) provided by `html-webpack-plugin`. | RegExp[] |
+| assetPreservePattern  | List of script files that should be preserved by this plugin after inserting them inline. This will be filtered using the output file name. | RegExp[] |
 
 Here are some examples illustrating how to use these options:
 
@@ -124,6 +109,21 @@ module.exports = {
     new HtmlInlineScriptPlugin({
       scriptMatchPattern: [/runtime~.+[.]js$/, /app~.+[.]js$/],
       htmlMatchPattern: [/index.html$/],
+    }),
+  ],
+};
+```
+##### Process any script files but preserve `main.js` from build assets
+
+```js
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
+
+module.exports = {
+  plugins: [
+    new HtmlWebpackPlugin(),
+    new HtmlInlineScriptPlugin({
+      assetPreservePattern: [/main.js$/],
     }),
   ],
 };
