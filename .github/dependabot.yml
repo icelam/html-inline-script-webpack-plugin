@@ -18,3 +18,13 @@ updates:
     reviewers:
       - "icelam"
     open-pull-requests-limit: 10
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "develop"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "ci"
+    rebase-strategy: "auto"
+    reviewers:
+      - "icelam"

@@ -5,7 +5,6 @@
 [![Install size](https://packagephobia.com/badge?p=html-inline-script-webpack-plugin)](https://packagephobia.com/result?p=html-inline-script-webpack-plugin)
 ![ci](https://github.com/icelam/html-inline-script-webpack-plugin/workflows/ci/badge.svg)
 [![Package quality](https://npm.packagequality.com/shield/html-inline-script-webpack-plugin.svg)](https://packagequality.com/#?package=html-inline-script-webpack-plugin)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/icelam/html-inline-script-webpack-plugin.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/icelam/html-inline-script-webpack-plugin/context:javascript)
 
 [![NPM](https://nodei.co/npm/html-inline-script-webpack-plugin.png?compact=true)](https://npmjs.org/package/html-inline-script-webpack-plugin)
 
@@ -17,35 +16,19 @@ Inspired by [react-dev-utils](https://github.com/facebook/create-react-app/blob/
 
 ### Webpack5
 
-#### NPM
-
 ```bash
 npm i html-inline-script-webpack-plugin -D
 ```
 
-#### Yarn
-
-```bash
-yarn add html-inline-script-webpack-plugin -D
-```
-
 ### Webpack4
-
-#### NPM
 
 ```bash
 npm i html-inline-script-webpack-plugin@^1 -D
 ```
 
-#### Yarn
-
-```bash
-yarn add html-inline-script-webpack-plugin@^1 -D
-```
-
 ## Usage
 
-By default, the plugin will convert all the external script files to inline script block.
+By default, the plugin will convert all the external script files to inline script block, and remove the original script file from build assets.
 
 ```js
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -64,6 +47,7 @@ Below are lists of options supported by this plugin:
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | scriptMatchPattern | List of script files that should be processed and inject as inline script. This will be filtered using the output file name.                                                                                                                                                     | RegExp[] |
 | htmlMatchPattern   | List of HTML template files that should be processed by this plugin. Useful when you have multiple `html-webpack-plugin` initialized. This will be filtered using the [`options?.filename`](https://github.com/jantimon/html-webpack-plugin#options) provided by `html-webpack-plugin`. | RegExp[] |
+| assetPreservePattern  | List of script files that should be preserved by this plugin after inserting them inline. This will be filtered using the output file name. | RegExp[] |
 
 Here are some examples illustrating how to use these options:
 
@@ -129,3 +113,43 @@ module.exports = {
   ],
 };
 ```
+##### Process any script files but preserve `main.js` from build assets
+
+```js
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
+
+module.exports = {
+  plugins: [
+    new HtmlWebpackPlugin(),
+    new HtmlInlineScriptPlugin({
+      assetPreservePattern: [/main.js$/],
+    }),
+  ],
+};
+```
+
+## Contributors
+
+Thanks goes to these wonderful people:
+
+<table>
+  <tbody>
+    <tr>
+        <td align="center" valign="top" width="20%">
+            <a href="https://github.com/kmalakoff">
+                <img src="https://avatars.githubusercontent.com/u/756520?s=120&v=4" width="60px;" alt="@kmalakoff"/>
+                <br />
+                <b>@kmalakoff</b>
+            </a>
+        </td>
+        <td align="center" valign="top" width="20%">
+            <a href="https://github.com/SorsOps">
+                <img src="https://avatars.githubusercontent.com/u/80043879?s=120&v=4" width="60px;" alt="@kmalakoff"/>
+                <br />
+                <b>@SorsOps</b>
+            </a>
+        </td>
+    </tr>
+  </tbody>
+</table>

@@ -11,9 +11,9 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@main
+        uses: actions/checkout@v3
       - name: Setup Node.js version
-        uses: actions/setup-node@main
+        uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
 
