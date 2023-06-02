@@ -128,3 +128,28 @@ module.exports = {
   ],
 };
 ```
+
+## Contributors
+
+Thanks goes to these wonderful people:
+
+<table>
+  <tbody>
+    <tr>
+        <td align="center" valign="top" width="20%">
+            <a href="https://github.com/kmalakoff">
+                <img src="https://avatars.githubusercontent.com/u/756520?s=120&v=4" width="60px;" alt="@kmalakoff"/>
+                <br />
+                <b>@kmalakoff</b>
+            </a>
+        </td>
+        <td align="center" valign="top" width="20%">
+            <a href="https://github.com/SorsOps">
+                <img src="https://avatars.githubusercontent.com/u/80043879?s=120&v=4" width="60px;" alt="@kmalakoff"/>
+                <br />
+                <b>@SorsOps</b>
+            </a>
+        </td>
+    </tr>
+  </tbody>
+</table>
