@@ -5,6 +5,7 @@ import webpack from 'webpack';
 import Self from '../dist';
 
 import simpleConfig from './cases/simple/webpack.config';
+import preserveConfig from './cases/preserveAsset/webpack.config';
 import multipleInstanceConfig from './cases/multiple-instance/webpack.config';
 import jsWithImportConfig from './cases/js-with-import/webpack.config';
 import webWorkerConfig from './cases/web-worker/webpack.config';
@@ -47,6 +48,40 @@ describe('HtmlInlineScriptPlugin', () => {
 
     await webpackPromise;
   });
+
+  it('should preserve the output of an asset if requested', async () => {
+    const webpackPromise = new Promise((resolve) => {
+      const compiler = webpack(preserveConfig);
+      console.log(preserveConfig)
+
+      compiler.run((error, stats) => {
+        expect(error).toBeNull();
+
+        const statsErrors = stats?.compilation.errors;
+        expect(statsErrors?.length).toBe(0);
+
+        const result = fs.readFileSync(
+          path.join(__dirname, 'cases/preserveAsset/dist/index.html'),
+          'utf8',
+        );
+
+        const expected = fs.readFileSync(
+          path.join(__dirname, 'cases/preserveAsset/expected/index.html'),
+          'utf8',
+        );
+        expect(result).toBe(expected);
+
+        const expectedFileList = fs.readdirSync(path.join(__dirname, 'cases/preserveAsset/expected/'));
+        const generatedFileList = fs.readdirSync(path.join(__dirname, 'cases/preserveAsset/dist/'));
+        expect(expectedFileList.sort()).toEqual(generatedFileList.sort());
+
+        resolve(true);
+      });
+    });
+
+    await webpackPromise;
+  });
+
 
   it('should build webpack config having multiple HTML webpack plugin instance without error', async () => {
     const webpackPromise = new Promise((resolve) => {
