@@ -18,7 +18,7 @@ const config: Configuration = {
       template: path.resolve(__dirname, './fixtures/index.html')
     }),
     new Self({
-      preserveAsset: (asset) => asset === 'ui.js'
+      preserveAsset: [/^ui[.]js$/]
     })
   ]
 };

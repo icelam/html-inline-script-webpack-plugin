@@ -7,7 +7,7 @@ import { PLUGIN_PREFIX } from './constants';
 export type PluginOptions = {
   scriptMatchPattern?: RegExp[];
   htmlMatchPattern?: RegExp[];
-  preserveAsset?: (assetName: string) => boolean
+  preserveAsset?: RegExp[];
 };
 
 class HtmlInlineScriptPlugin implements WebpackPluginInstance {
@@ -19,7 +19,7 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
 
   ignoredHtmlFiles: string[];
 
-  preserveAsset: (assetName: string) => boolean
+  preserveAsset: NonNullable<PluginOptions['preserveAsset']>;
 
   constructor(options: PluginOptions = {}) {
     if (options && Array.isArray(options)) {
@@ -37,7 +37,7 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
     const {
       scriptMatchPattern = [/.+[.]js$/],
       htmlMatchPattern = [/.+[.]html$/],
-      preserveAsset = () => false
+      preserveAsset = [],
     } = options;
 
     this.scriptMatchPattern = scriptMatchPattern;
@@ -52,6 +52,13 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
   ): boolean {
     return this.scriptMatchPattern.some((test) => assetName.match(test));
   }
+
+  isFileNeedsToBePreserved(
+    assetName: string
+  ): boolean {
+    return this.preserveAsset.some((test) => assetName.match(test));
+  }
+
 
   shouldProcessHtml(
     templateName: string
@@ -125,7 +132,7 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
       }, (assets) => {
         if (this.ignoredHtmlFiles.length === 0) {
           this.processedScriptFiles.forEach((assetName) => {
-            if (!this.preserveAsset(assetName)) {
+            if (!this.isFileNeedsToBePreserved(assetName)) {
               delete assets[assetName];
             }
           });
