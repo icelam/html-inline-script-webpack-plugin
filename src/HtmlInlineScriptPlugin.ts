@@ -7,7 +7,7 @@ import { PLUGIN_PREFIX } from './constants';
 export type PluginOptions = {
   scriptMatchPattern?: RegExp[];
   htmlMatchPattern?: RegExp[];
-  preserveAsset?: RegExp[];
+  assetPreservePattern?: RegExp[];
 };
 
 class HtmlInlineScriptPlugin implements WebpackPluginInstance {
@@ -19,7 +19,7 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
 
   ignoredHtmlFiles: string[];
 
-  preserveAsset: NonNullable<PluginOptions['preserveAsset']>;
+  assetPreservePattern: NonNullable<PluginOptions['assetPreservePattern']>;
 
   constructor(options: PluginOptions = {}) {
     if (options && Array.isArray(options)) {
@@ -37,13 +37,13 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
     const {
       scriptMatchPattern = [/.+[.]js$/],
       htmlMatchPattern = [/.+[.]html$/],
-      preserveAsset = [],
+      assetPreservePattern = [],
     } = options;
 
     this.scriptMatchPattern = scriptMatchPattern;
     this.htmlMatchPattern = htmlMatchPattern;
     this.processedScriptFiles = [];
-    this.preserveAsset = preserveAsset;
+    this.assetPreservePattern = assetPreservePattern;
     this.ignoredHtmlFiles = [];
   }
 
@@ -56,7 +56,7 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
   isFileNeedsToBePreserved(
     assetName: string
   ): boolean {
-    return this.preserveAsset.some((test) => assetName.match(test));
+    return this.assetPreservePattern.some((test) => assetName.match(test));
   }
 
 
