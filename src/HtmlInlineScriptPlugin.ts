@@ -1,3 +1,4 @@
+import path from 'path';
 import { Compilation } from 'webpack';
 import type { Compiler, WebpackPluginInstance } from 'webpack';
 import htmlWebpackPlugin from 'html-webpack-plugin';
@@ -37,7 +38,7 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
     const {
       scriptMatchPattern = [/.+[.]js$/],
       htmlMatchPattern = [/.+[.]html$/],
-      assetPreservePattern = [],
+      assetPreservePattern = []
     } = options;
 
     this.scriptMatchPattern = scriptMatchPattern;
@@ -58,7 +59,6 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
   ): boolean {
     return this.assetPreservePattern.some((test) => assetName.match(test));
   }
-
 
   shouldProcessHtml(
     templateName: string
@@ -102,18 +102,48 @@ class HtmlInlineScriptPlugin implements WebpackPluginInstance {
     };
   }
 
-  apply(compiler: Compiler): void {
-    let publicPath = compiler.options?.output?.publicPath as string || '';
+  getPublicPath(
+    compilation: Compilation,
+    htmlFileName: string,
+    customPublicPath: string
+  ): string {
+    const webpackPublicPath = compilation.getAssetPath(
+      compilation.outputOptions.publicPath as string,
+      { hash: compilation.hash }
+    );
+    // Webpack 5 introduced "auto" as default value
+    const isPublicPathDefined = webpackPublicPath !== 'auto';
+
+    let publicPath = '';
+
+    if (customPublicPath !== 'auto') {
+      // If the html-webpack-plugin options contain a custom public path uset it
+      publicPath = customPublicPath;
+    } else if (isPublicPathDefined) {
+      // If a hard coded public path exists in webpack config use it
+      publicPath = webpackPublicPath;
+    } else if (compilation.options.output.path) {
+      // If no public path for webpack and html-webpack-plugin was set get a relative url path
+      publicPath = path.relative(
+        path.resolve(compilation.options.output.path, path.dirname(htmlFileName)),
+        compilation.options.output.path
+      ).split(path.sep).join('/');
+    }
 
     if (publicPath && !publicPath.endsWith('/')) {
       publicPath += '/';
     }
 
+    return publicPath;
+  }
+
+  apply(compiler: Compiler): void {
     compiler.hooks.compilation.tap(`${PLUGIN_PREFIX}_compilation`, (compilation) => {
       const hooks = htmlWebpackPlugin.getHooks(compilation);
 
       hooks.alterAssetTags.tap(`${PLUGIN_PREFIX}_alterAssetTags`, (data) => {
         const htmlFileName = data.plugin.options?.filename;
+        const publicPath = this.getPublicPath(compilation, data.outputName, data.publicPath);
 
         if (htmlFileName && !this.shouldProcessHtml(htmlFileName)) {
           this.ignoredHtmlFiles.push(htmlFileName);

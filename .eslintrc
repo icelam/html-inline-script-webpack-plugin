@@ -32,8 +32,9 @@
     }],
     "import/extensions": ["error", {
       "js": "never",
-      "ts": "never",
-    }]
+      "ts": "never"
+    }],
+    "class-methods-use-this": "off"
   },
   "overrides": [
     {
@@ -51,7 +52,7 @@
         "airbnb-base",
         "plugin:jest/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended"
       ],
       "env": { "node": true },
       "rules": {
@@ -59,7 +60,7 @@
         "no-console": ["off"],
         "import/extensions": ["error", {
           "js": "never",
-          "ts": "never",
+          "ts": "never"
         }]
       }
     }
