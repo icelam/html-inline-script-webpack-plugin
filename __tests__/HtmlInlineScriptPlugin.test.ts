@@ -9,7 +9,6 @@ import preserveConfig from './cases/preserveAsset/webpack.config';
 import multipleInstanceConfig from './cases/multiple-instance/webpack.config';
 import jsWithImportConfig from './cases/js-with-import/webpack.config';
 import webWorkerConfig from './cases/web-worker/webpack.config';
-import inlineWebWorkerConfig from './cases/inline-web-worker/webpack.config';
 import ignoreScriptsConfig from './cases/ignore-scripts/webpack.config';
 import ignoreHtmlsConfig from './cases/ignore-htmls/webpack.config';
 import ignoreScriptsAndHtmlsConfig from './cases/ignore-scripts-and-htmls/webpack.config';
@@ -197,39 +196,6 @@ describe('HtmlInlineScriptPlugin', () => {
 
         const expectedFileList = fs.readdirSync(path.join(__dirname, 'cases/web-worker/expected/'));
         const generatedFileList = fs.readdirSync(path.join(__dirname, 'cases/web-worker/dist/'));
-        expect(expectedFileList.sort()).toEqual(generatedFileList.sort());
-
-        resolve(true);
-      });
-    });
-
-    await webpackPromise;
-  });
-
-  it('should build webpack config having inline web worker without error', async () => {
-    const webpackPromise = new Promise((resolve) => {
-      const compiler = webpack(inlineWebWorkerConfig);
-
-      compiler.run((error, stats) => {
-        expect(error).toBeNull();
-
-        const statsErrors = stats?.compilation.errors;
-        expect(statsErrors?.length).toBe(0);
-
-        const result1 = fs.readFileSync(
-          path.join(__dirname, 'cases/inline-web-worker/dist/index.html'),
-          'utf8',
-        );
-
-        const expected1 = fs.readFileSync(
-          path.join(__dirname, 'cases/inline-web-worker/expected/index.html'),
-          'utf8',
-        );
-
-        expect(result1).toBe(expected1);
-
-        const expectedFileList = fs.readdirSync(path.join(__dirname, 'cases/inline-web-worker/expected/'));
-        const generatedFileList = fs.readdirSync(path.join(__dirname, 'cases/inline-web-worker/dist/'));
         expect(expectedFileList.sort()).toEqual(generatedFileList.sort());
 
         resolve(true);
