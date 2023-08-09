@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.2.1](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v3.2.0...v3.2.1) (2023-08-09)
+
+
+### Bug Fixes
+
+* resolve public path base on html-webpack-plugin and webpack config ([c333304](https://github.com/icelam/html-inline-script-webpack-plugin/commit/c333304722aa8a9f594bbcc7d48944b7720ec499))
+
 ## [3.2.0](https://github.com/icelam/html-inline-script-webpack-plugin/compare/v3.1.0...v3.2.0) (2023-06-02)
 
 
