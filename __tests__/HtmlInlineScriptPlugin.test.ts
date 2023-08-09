@@ -14,6 +14,7 @@ import ignoreHtmlsConfig from './cases/ignore-htmls/webpack.config';
 import ignoreScriptsAndHtmlsConfig from './cases/ignore-scripts-and-htmls/webpack.config';
 import filenameWithSpecialCharactersConfig from './cases/filename-with-special-characters/webpack.config';
 import escapeScriptTagEndConfig from './cases/escape-script-end-tag/webpack.config';
+import htmlInsideSubfolderConfig from './cases/html-inside-subfolder/webpack.config';
 
 describe('HtmlInlineScriptPlugin', () => {
   it('should build simple webpack config without error', async () => {
@@ -197,6 +198,42 @@ describe('HtmlInlineScriptPlugin', () => {
         const expectedFileList = fs.readdirSync(path.join(__dirname, 'cases/web-worker/expected/'));
         const generatedFileList = fs.readdirSync(path.join(__dirname, 'cases/web-worker/dist/'));
         expect(expectedFileList.sort()).toEqual(generatedFileList.sort());
+
+        resolve(true);
+      });
+    });
+
+    await webpackPromise;
+  });
+
+  it('should build webpack config that outputs html file inside subfolder without error', async () => {
+    const webpackPromise = new Promise((resolve) => {
+      const compiler = webpack(htmlInsideSubfolderConfig);
+
+      compiler.run((error, stats) => {
+        expect(error).toBeNull();
+
+        const statsErrors = stats?.compilation.errors;
+        expect(statsErrors?.length).toBe(0);
+
+        const result = fs.readFileSync(
+          path.join(__dirname, 'cases/html-inside-subfolder/dist/frontend/index.html'),
+          'utf8',
+        );
+
+        const expected = fs.readFileSync(
+          path.join(__dirname, 'cases/html-inside-subfolder/expected/frontend/index.html'),
+          'utf8',
+        );
+        expect(result).toBe(expected);
+
+        const expectedParentFileList = fs.readdirSync(path.join(__dirname, 'cases/html-inside-subfolder/expected/'));
+        const generatedParentFileList = fs.readdirSync(path.join(__dirname, 'cases/html-inside-subfolder/dist/'));
+        expect(expectedParentFileList.sort()).toEqual(generatedParentFileList.sort());
+
+        const expectedChildFileList = fs.readdirSync(path.join(__dirname, 'cases/html-inside-subfolder/expected/'));
+        const generatedChildFileList = fs.readdirSync(path.join(__dirname, 'cases/html-inside-subfolder/dist/'));
+        expect(expectedChildFileList.sort()).toEqual(generatedChildFileList.sort());
 
         resolve(true);
       });
