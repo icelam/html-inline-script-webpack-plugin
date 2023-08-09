@@ -8,25 +8,15 @@ const config: Configuration = {
   entry: path.join(__dirname, './fixtures/index.js'),
   output: {
     path: path.join(__dirname, './dist'),
-    filename: '[name].js',
-    publicPath: './'
+    filename: '[name].js'
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './fixtures/index.html')
+      template: path.resolve(__dirname, './fixtures/index.html'),
+      filename: path.join(__dirname, './dist/frontend/index.html')
     }),
     new Self()
-  ],
-  module: {
-    rules: [
-      {
-        resourceQuery: /raw/,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore - according to assets-loader, it is a proper usage to use 'asset/source'
-        type: 'asset/source'
-      }
-    ]
-  }
+  ]
 };
 
 export default config;

@@ -129,6 +129,10 @@ module.exports = {
 };
 ```
 
+## Known limitations
+1. This plugin does not transform Web Worker syntax like `new Worker(new URL('./worker.js', import.meta.url));``. It simply embeds the source code processed by webpack into HTML files, and emits any JavaScript files that is not processed by the plugin.
+2. This plugin is designed to embed script content into HTML files for deployment to environments where only a single file can be uploaded, or where the script file itself is small enough that it doesn't warrant an additional HTTP request. It is not intended for use in development, and may fail if HMR is enabled.
+
 ## Contributors
 
 Thanks goes to these wonderful people:
@@ -145,7 +149,7 @@ Thanks goes to these wonderful people:
         </td>
         <td align="center" valign="top" width="20%">
             <a href="https://github.com/SorsOps">
-                <img src="https://avatars.githubusercontent.com/u/80043879?s=120&v=4" width="60px;" alt="@kmalakoff"/>
+                <img src="https://avatars.githubusercontent.com/u/80043879?s=120&v=4" width="60px;" alt="@SorsOps"/>
                 <br />
                 <b>@SorsOps</b>
             </a>
