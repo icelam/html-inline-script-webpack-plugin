@@ -33,7 +33,7 @@
     "inline-script"
   ],
   "devDependencies": {
-    "@commitlint/cli": "^17.0.3",
+    "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^17.0.3",
     "@types/html-webpack-plugin": "^3.2.3",
     "@types/jest": "^27.0.2",
