@@ -10,6 +10,10 @@ const config: Configuration = {
     path: path.join(__dirname, './dist'),
     filename: '[name].js'
   },
+  optimization: {
+    chunkIds: 'named',
+    moduleIds: 'named'
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './fixtures/index.html')
