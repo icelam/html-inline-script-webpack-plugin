@@ -11,6 +11,10 @@ const config: Configuration = {
     filename: '[name].js',
     publicPath: './'
   },
+  optimization: {
+    chunkIds: 'named',
+    moduleIds: 'named'
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './fixtures/index.html')
