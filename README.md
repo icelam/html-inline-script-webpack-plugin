@@ -130,7 +130,7 @@ module.exports = {
 ```
 
 ## Known limitations
-1. This plugin does not transform Web Worker syntax like `new Worker(new URL('./worker.js', import.meta.url));``. It simply embeds the source code processed by webpack into HTML files, and emits any JavaScript files that is not processed by the plugin.
+1. This plugin does not transform Web Worker syntax like `new Worker(new URL('./worker.js', import.meta.url));`. It simply embeds the source code processed by webpack into HTML files, and emits any JavaScript files that is not processed by the plugin.
 2. This plugin is designed to embed script content into HTML files for deployment to environments where only a single file can be uploaded, or where the script file itself is small enough that it doesn't warrant an additional HTTP request. It is not intended for use in development, and may fail if HMR is enabled.
 3. This plugin does not support inlining scripts that are dynamically imported (the `import()` syntax). The reason is explained in [this issue](https://github.com/icelam/html-inline-script-webpack-plugin/issues/494#issuecomment-2016902280).
 
